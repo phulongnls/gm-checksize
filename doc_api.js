@@ -3,7 +3,7 @@
  * @apiName CheckSize
  * @apiGroup Gm libary
  *
- * @apiParam {image_url} url of Image.
+ * @apiParam {String} image_url url of Image.
  *
  * @apiSuccess {String} width Width of the Image.
  * @apiSuccess {String} height  Height of the Image.
