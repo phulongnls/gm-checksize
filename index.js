@@ -38,9 +38,9 @@ app.get ('/env', function (req,res){
 // resize and remove EXIF profile data
 
 app.post ('/check_size', urlencodedParser, function (req,res) {
-	if (!req.body) {
+	if (!req.body.image_url) {
 		res.setHeader('Content-Type', 'application/json');
-		res.end(JSON.stringify({ "error": "ImageNotFound"}));		
+		res.end(JSON.stringify({ "error": "ImageNotFound","code":"400"}));		
 	}
 	let image_url =  req.body.image_url;
 	console.log (image_url);
@@ -51,7 +51,7 @@ app.post ('/check_size', urlencodedParser, function (req,res) {
 			res.end(JSON.stringify(value));		
 		} else {
 			res.setHeader('Content-Type', 'application/json');
-			res.end(JSON.stringify({ "error": "ImageNotFound"}));		
+			res.end(JSON.stringify({ "error": "ImageNotFound","code":"400"}));		
 		}
 
 	});	

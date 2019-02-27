@@ -16,10 +16,12 @@
  *     }
  *
  * @apiError ImageNotFound The image of url was not found.
+ * @apiError Code 400
  *
  * @apiErrorExample {json} [Error-Response]:
  *     HTTP/1.1 404 Not Found
  *     {
- *       "error": "ImageNotFound"
+ *       "error": "ImageNotFound",
+ *       "code": "400"
  *     }
  */
