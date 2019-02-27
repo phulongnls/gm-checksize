@@ -8,7 +8,7 @@
  * @apiSuccess {String} [width] Width of the Image.
  * @apiSuccess {String} [height]  Height of the Image.
  *
- * @apiSuccessExample {json} Success-Response:
+ * @apiSuccessExample {json} [Success-Response]:
  *     HTTP/1.1 200 OK
  *     {
  *       "width": "272",
@@ -17,7 +17,7 @@
  *
  * @apiError ImageNotFound The image of url was not found.
  *
- * @apiErrorExample {json} Error-Response:
+ * @apiErrorExample {json} [Error-Response]:
  *     HTTP/1.1 404 Not Found
  *     {
  *       "error": "ImageNotFound"
