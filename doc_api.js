@@ -15,7 +15,7 @@
  *       "height": "92"
  *     }
  *
- * @apiError [error] ImageNotFound The image of url was not found.
+ * @apiError [error] ImageNotFound
  * @apiError [code] 400
  *
  * @apiErrorExample {json} [Error-Response]:
