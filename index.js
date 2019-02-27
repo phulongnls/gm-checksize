@@ -11,43 +11,49 @@ const PORT = process.env.PORT || '8000'
 
 
  // create application/json parser
-var jsonParser = bodyParser.json()
+ var jsonParser = bodyParser.json()
  
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
- app.get('/resize/:width/:height', function (req, res) {
- 	let width = req.params.width;
- 	let height = req.params.height;
- 	let source = './images/origin/1.jpg';
- 	let target = './images/resize/1';
- 	let check_resize = resizeImage (source,target,width,height);
- 	if (check_resize) {		 
+app.get('/resize/:width/:height', function (req, res) {
+	let width = req.params.width;
+	let height = req.params.height;
+	let source = './images/origin/1.jpg';
+	let target = './images/resize/1';
+	let check_resize = resizeImage (source,target,width,height);
+	if (check_resize) {		 
 
- 		res.send ('Resize Image success!');
- 	}
- })
+		res.send ('Resize Image success!');
+	}
+})
 
- app.get ('/', function (req,res){
- 	res.send ('Welcome to Gm demo in KintoBlock ');
- })
+app.get ('/', function (req,res){
+	res.send ('Welcome to Gm demo in KintoBlock ');
+})
 
- app.get ('/env', function (req,res){
- 	res.send ('ENV: AUTO_ORIENT ' + process.env.AUTO_ORIENT + ' | DEFAULT_IMAGE_TYPE: ' + process.env.DEFAULT_IMAGE_TYPE);
- })
+app.get ('/env', function (req,res){
+	res.send ('ENV: AUTO_ORIENT ' + process.env.AUTO_ORIENT + ' | DEFAULT_IMAGE_TYPE: ' + process.env.DEFAULT_IMAGE_TYPE);
+})
 // resize and remove EXIF profile data
 
 app.post ('/check_size', urlencodedParser, function (req,res) {
-	 if (!req.body) {
-	 	res.setHeader('Content-Type', 'application/json');
-  		res.end(JSON.stringify({ "error": "ImageNotFound"}));		
-	 }
+	if (!req.body) {
+		res.setHeader('Content-Type', 'application/json');
+		res.end(JSON.stringify({ "error": "ImageNotFound"}));		
+	}
 	let image_url =  req.body.image_url;
 	console.log (image_url);
-	download(image_url, './download/temp_image', function(value){
-		console.log('Success download and check size');	
-		res.setHeader('Content-Type', 'application/json');
-  		res.end(JSON.stringify(value));		
+	download(image_url, './download/temp_image', function(value){		
+		if (value !== 0) {
+			console.log('Success download and check size');	
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(value));		
+		} else {
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify({ "error": "ImageNotFound"}));		
+		}
+
 	});	
 })
 function resizeImage (source,target,width,height) {
@@ -62,8 +68,10 @@ var download = function(uri, filename, callback){
 		let data = { image_type : res.headers['content-type'], image_size:  res.headers['content-length'] } ;		
 		request(uri).pipe(fs.createWriteStream(filename)).on('close', function () {
 			gm(filename).size(function(err, value){
-				if (!err) {
+				if (!err) {					
 					return callback(value);					
+				} else {
+					return callback(0);
 				}
 				
 			})
