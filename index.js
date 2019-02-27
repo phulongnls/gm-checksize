@@ -38,7 +38,10 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // resize and remove EXIF profile data
 
 app.post ('/check_size', urlencodedParser, function (req,res) {
-	 if (!req.body) return res.sendStatus(400)
+	 if (!req.body) {
+	 	res.setHeader('Content-Type', 'application/json');
+  		res.end(JSON.stringify({ "error": "ImageNotFound"}));		
+	 }
 	let image_url =  req.body.image_url;
 	console.log (image_url);
 	download(image_url, './download/temp_image', function(value){
