@@ -8,12 +8,7 @@ require('dotenv').config()
 const IMAGES = './images/';
 const PORT = process.env.PORT || '8000'
 
-/**
- * @api {get} /env  Prints "Hello "
- * @apiName env
- * @apiParam (Url) {String} name the name to print
- * @apiSuccess (200) {String} message the hello {name} message
- */
+
 
  // create application/json parser
 var jsonParser = bodyParser.json()
