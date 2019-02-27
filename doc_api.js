@@ -5,8 +5,8 @@
  *
  * @apiParam {String} image_url url of Image.
  *
- * @apiSuccess {String} width Width of the Image.
- * @apiSuccess {String} height  Height of the Image.
+ * @apiSuccess {String} [width] Width of the Image.
+ * @apiSuccess {String} [height]  Height of the Image.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
