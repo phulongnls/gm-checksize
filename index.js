@@ -16,16 +16,25 @@ const PORT = process.env.PORT || '8000'
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.get('/resize/:width/:height', function (req, res) {
-	let width = req.params.width;
-	let height = req.params.height;
-	let source = './images/origin/1.jpg';
-	let target = './images/resize/1';
-	let check_resize = resizeImage (source,target,width,height);
-	if (check_resize) {		 
-
-		res.send ('Resize Image success!');
+app.get('/resize', function (req, res) {
+	let width = req.query.width;
+	let height = req.query.height;
+	console.log (width);
+	console.log (height);
+	if (validateNumber(width,height)) {
+		let source = './images/origin/1';
+		let target = './images/resize/1';
+		let check_resize = resizeImage (source,target,width,height);
+		if (check_resize) {		 
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify({'code':200,'messsage':'resize success'}));	
+		} 
+	}else {
+		res.setHeader('Content-Type', 'application/json');
+		res.end(JSON.stringify({ "error": "resize not success","code":"400"}));		
 	}
+	
+	
 })
 
 app.get ('/', function (req,res){
@@ -62,6 +71,17 @@ function resizeImage (source,target,width,height) {
 			console.log('resize image done');  }
 		});
 	return true;
+}
+function validateNumber (width, height) {
+	width = parseInt (width);
+	height =  parseInt(height);
+	if (width >= 0 && Number.isInteger(width) && height >= 0 && Number.isInteger(height) ) {
+		console.log (width);
+		console.log (height);
+		return true;
+	} else {
+		return false;
+	}
 }
 var download = function(uri, filename, callback){
 	request.head(uri, function(err, res, body){
