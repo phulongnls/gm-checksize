@@ -1,7 +1,6 @@
 /**
  * @api {post} /check_size/  request check information image from URL
  * @apiName CheckSize
- * @apiGroup GraphicsMagick
  *
  * @apiParam {String} image_url url of Image.
  *
@@ -29,10 +28,9 @@
 /**
  * @api {get} /resize/?width=:width&height=:height  request resize image
  * @apiName Resize
- * @apiGroup GraphicsMagick
  *
- * @apiParam {Number} width width attribute of the IMG resized.
- * @apiParam {Number} height height attribute of the IMG resized.
+ * @apiParam {Number} [width] width attribute of the IMG resized.
+ * @apiParam {Number} [height] height attribute of the IMG resized.
  *
 
  * @apiSuccessExample {json} [Success-Response]:
