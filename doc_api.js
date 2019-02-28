@@ -23,6 +23,8 @@
  *       "error": "ImageNotFound",
  *       "code": "400"
  *     }
+*/
+/**
  * @api {get} /resize/?width=:width&height=:height  request resize image
  * @apiName Resize
  *
